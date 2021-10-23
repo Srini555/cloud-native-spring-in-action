@@ -178,7 +178,7 @@ services:
   # Observability
 
   grafana:
-    image: grafana/grafana:8.1.0
+    image: grafana/grafana:8.2.2
     container_name: grafana
     depends_on:
       - loki
@@ -194,7 +194,7 @@ services:
       - ./platform/grafana/dashboards:/etc/grafana/provisioning/dashboards
   
   loki:
-    image: grafana/loki:2.2.1
+    image: grafana/loki:2.3.0
     container_name: loki
     command: -config.file=/etc/loki/local-config.yaml
     depends_on:
@@ -203,7 +203,7 @@ services:
       - "3100:3100"
   
   prometheus:
-    image: prom/prometheus:v2.28.1
+    image: prom/prometheus:v2.30.3
     container_name: prometheus
     ports:
       - "9090:9090"
@@ -211,7 +211,7 @@ services:
       - "./platform/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml"
   
   tempo:
-    image: grafana/tempo:1.0.1
+    image: grafana/tempo:1.1.0
     container_name: tempo
     command: -config.file /etc/tempo-config.yml
     volumes:
@@ -221,7 +221,7 @@ services:
       - "9411:9411"     # Zipkin
 
   fluent-bit:
-    image: grafana/fluent-bit-plugin-loki:main
+    image: grafana/fluent-bit-plugin-loki:2.3.0-amd64
     container_name: fluent-bit
     ports:
       - "24224:24224"
