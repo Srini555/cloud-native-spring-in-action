@@ -56,6 +56,7 @@ items:
             host: polar-rabbitmq
             port: 5672
             username: user
+            password: password
             connection-timeout: 5s
   - apiVersion: apps/v1
     kind: Deployment
@@ -73,7 +74,7 @@ items:
           serviceAccount: spring-cloud-kubernetes-configuration-watcher
           containers:
           - name: spring-cloud-kubernetes-configuration-watcher
-            image: springcloud/spring-cloud-kubernetes-configuration-watcher:2.1.0-SNAPSHOT
+            image: springcloud/spring-cloud-kubernetes-configuration-watcher:2.1.0-M2
             imagePullPolicy: IfNotPresent
             readinessProbe:
               httpGet:
@@ -92,11 +93,6 @@ items:
             env:
               - name: BPL_JVM_THREAD_COUNT
                 value: "25"
-              - name: SPRING_RABBITMQ_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: polar-rabbitmq
-                    key: rabbitmq-password
             volumeMounts:
               - name: configuration-watcher-volume
                 mountPath: /workspace/config

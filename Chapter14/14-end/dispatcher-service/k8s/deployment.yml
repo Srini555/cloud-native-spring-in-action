@@ -14,10 +14,10 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9003"
     spec:
-      terminationGracePeriodSeconds: 20
       containers:
         - name: dispatcher-service
           image: polarbookshop/dispatcher-service:0.0.1-SNAPSHOT
+          imagePullPolicy: Always
           lifecycle:
             preStop:
               exec:
