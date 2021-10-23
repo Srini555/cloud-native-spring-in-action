@@ -14,10 +14,10 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8888"
     spec:
-      terminationGracePeriodSeconds: 20
       containers:
         - name: config-service
           image: polarbookshop/config-service:0.0.1-SNAPSHOT
+          imagePullPolicy: Always
           lifecycle:
             preStop:
               exec:
@@ -38,12 +38,7 @@ spec:
             periodSeconds: 15
           env:
             - name: BPL_JVM_THREAD_COUNT
-              value: "25"
-            - name: SPRING_RABBITMQ_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: polar-rabbitmq
-                  key: rabbitmq-password
+              value: "50"
           volumeMounts:
             - name: config-service-volume
               mountPath: /workspace/config
