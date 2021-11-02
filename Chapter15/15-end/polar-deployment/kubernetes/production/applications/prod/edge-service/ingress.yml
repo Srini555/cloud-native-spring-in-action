@@ -2,17 +2,23 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: polar-ingress
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
-    - http:
+    - host: polar-keycloak.531777ab494d4ee08fb4.northeurope.aksapp.io
+      http:
         paths:
-          - path: /auth
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: keycloak-discovery.keycloak-system.svc.cluster.local
+                name: polar-keycloak
                 port:
                   number: 80
+    - host: edge-service.531777ab494d4ee08fb4.northeurope.aksapp.io
+      http:
+        paths:
           - path: /
             pathType: Prefix
             backend:

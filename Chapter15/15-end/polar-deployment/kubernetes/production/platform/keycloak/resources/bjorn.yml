@@ -1,0 +1,25 @@
+apiVersion: keycloak.org/v1alpha1
+kind: KeycloakUser
+metadata:
+  name: bjorn
+  namespace: keycloak-system
+  labels:
+    app: polar-keycloak
+    realm: polar-bookshop
+spec:
+  realmSelector:
+    matchLabels:
+      realm: polar-bookshop
+  user:
+    username: bjorn
+    firstName: Bjorn
+    lastName: Vinterberg
+    emailVerified: false
+    enabled: true
+    credentials:
+      - type: password
+        value: "password"
+        temporary: false
+    realmRoles:
+      - customer
+      - offline_access

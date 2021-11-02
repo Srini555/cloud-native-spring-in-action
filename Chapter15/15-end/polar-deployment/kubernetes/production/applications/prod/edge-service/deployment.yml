@@ -28,13 +28,13 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: 9000
-            initialDelaySeconds: 60
-            periodSeconds: 15
+            initialDelaySeconds: 10
+            periodSeconds: 5
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 9000
-            initialDelaySeconds: 60
+            initialDelaySeconds: 5
             periodSeconds: 15
           env:
             - name: CATALOG_SERVICE_URL
@@ -48,10 +48,6 @@ spec:
               mountPath: /workspace/config
             - name: edge-service-volume-secret
               mountPath: /workspace/secrets/edge-service-secret
-            - name: rabbitmq-volume-secret
-              mountPath: /workspace/secrets/rabbitmq
-            - name: keycloak-volume-secret
-              mountPath: /workspace/secrets/keycloak
       volumes:
         - name: edge-service-volume
           configMap:
@@ -59,9 +55,3 @@ spec:
         - name: edge-service-volume-secret
           secret:
             secretName: edge-service
-        - name: rabbitmq-volume-secret
-          secret:
-            secretName: polar-rabbitmq-secret
-        - name: keycloak-volume-secret
-          secret:
-            secretName: polar-keycloak-client-secret

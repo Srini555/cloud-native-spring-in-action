@@ -1,0 +1,27 @@
+apiVersion: keycloak.org/v1alpha1
+kind: KeycloakUser
+metadata:
+  name: isabelle
+  namespace: keycloak-system
+  labels:
+    app: polar-keycloak
+    realm: polar-bookshop
+spec:
+  realmSelector:
+    matchLabels:
+      realm: polar-bookshop
+  user:
+    username: isabelle
+    firstName: Isabelle
+    lastName: Dahl
+    emailVerified: false
+    enabled: true
+    credentials:
+      - type: password
+        value: "password"
+        temporary: false
+    realmRoles:
+      - customer
+      - employee
+      - offline_access
+  

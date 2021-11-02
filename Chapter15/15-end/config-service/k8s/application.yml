@@ -5,4 +5,4 @@ spring:
     bus:
       enabled: true
   rabbitmq:
-    host: polar-rabbitmq
+    host: polar-rabbitmq.polar-rabbitmq.svc.cluster.local

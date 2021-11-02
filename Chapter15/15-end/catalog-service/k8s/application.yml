@@ -5,6 +5,13 @@ spring:
     config:
       uri: http://config-service
   datasource:
-    url: jdbc:postgresql://polar-postgres-catalog/polardb_catalog
+    username: polaradmin@polar-postgres
+    password: polarPassw0rd!
+    url: jdbc:postgresql://polar-postgres.postgres.database.azure.com:5432/polardb_catalog
   rabbitmq:
-    host: polar-rabbitmq
+    host: polar-rabbitmq.polar-rabbitmq.svc.cluster.local
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak-discovery.keycloak-system.svc.cluster.local:8080/auth/realms/PolarBookshop

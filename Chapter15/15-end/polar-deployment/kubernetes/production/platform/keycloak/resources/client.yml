@@ -1,0 +1,28 @@
+apiVersion: keycloak.org/v1alpha1
+kind: KeycloakClient
+metadata:
+  name: edge-service
+  namespace: keycloak-system
+  labels:
+    app: polar-keycloak
+    realm: polar-bookshop
+spec:
+  realmSelector:
+    matchLabels:
+      realm: polar-bookshop
+  client:
+    clientId: edge-service
+    clientAuthenticatorType: client-secret
+    enabled: true
+    consentRequired: false
+    standardFlowEnabled: true
+    publicClient: false
+    protocol: openid-connect
+    defaultClientScopes:
+      - roles
+    optionalClientScopes:
+      - offline_access
+    redirectUris:
+      - "*"
+    webOrigins:
+      - "*"

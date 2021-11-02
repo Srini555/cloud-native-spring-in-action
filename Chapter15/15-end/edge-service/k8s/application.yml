@@ -5,6 +5,8 @@ spring:
     config:
       uri: http://config-service
   rabbitmq:
-    host: polar-rabbitmq
+    host: polar-rabbitmq.polar-rabbitmq.svc.cluster.local
+  zipkin:
+    enabled: false
   redis:
     host: polar-redis

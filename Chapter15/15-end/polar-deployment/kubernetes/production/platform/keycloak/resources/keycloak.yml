@@ -1,0 +1,29 @@
+apiVersion: keycloak.org/v1alpha1
+kind: Keycloak
+metadata:
+  name: polar-keycloak
+  namespace: keycloak-system
+  labels:
+    app: polar-keycloak
+spec:
+  instances: 1
+  externalAccess:
+    enabled: True
+  externalDatabase:
+    enabled: true
+  keycloakDeploymentSpec:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+      limits:
+        cpu: 2000m
+        memory: 500Mi
+  postgresDeploymentSpec:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+      limits:
+        cpu: 200m
+        memory: 250Mi

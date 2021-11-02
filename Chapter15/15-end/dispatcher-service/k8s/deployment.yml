@@ -28,19 +28,21 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: 9003
-            initialDelaySeconds: 10
-            periodSeconds: 5
+            initialDelaySeconds: 60
+            periodSeconds: 15
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 9003
-            initialDelaySeconds: 5
+            initialDelaySeconds: 60
             periodSeconds: 15
           volumeMounts:
             - name: dispatcher-service-volume
               mountPath: /workspace/config
             - name: dispatcher-service-volume-secret
               mountPath: /workspace/secrets/dispatcher-service-secret
+            - name: rabbitmq-volume-secret
+              mountPath: /workspace/secrets/rabbitmq
       volumes:
         - name: dispatcher-service-volume
           configMap:
@@ -48,3 +50,6 @@ spec:
         - name: dispatcher-service-volume-secret
           secret:
             secretName: dispatcher-service
+        - name: rabbitmq-volume-secret
+          secret:
+            secretName: polar-rabbitmq-secret

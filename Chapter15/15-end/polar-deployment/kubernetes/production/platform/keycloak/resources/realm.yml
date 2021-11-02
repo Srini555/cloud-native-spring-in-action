@@ -1,0 +1,39 @@
+apiVersion: keycloak.org/v1alpha1
+kind: KeycloakRealm
+metadata:
+  name: polar-bookshop
+  namespace: keycloak-system
+  labels:
+    app: polar-keycloak
+    realm: polar-bookshop
+spec:
+  realm:
+    realm: PolarBookshop
+    enabled: true
+    roles:
+      realm:
+        - name: customer
+        - name: employee
+    clientScopes:
+      - name: roles
+        protocol: openid-connect
+        protocolMappers:
+          - name: "realm roles"
+            protocol: openid-connect
+            protocolMapper: oidc-usermodel-realm-role-mapper
+            consentRequired: false
+            config:
+              multivalued: "true"
+              id.token.claim: "true"
+              access.token.claim: "true"
+              claim.name: roles
+              jsonType.label: String
+              userinfo.token.claim: "true"
+    scopeMappings:
+      - clientScope: roles
+        roles:
+          - customer
+          - employee
+  instanceSelector:
+    matchLabels:
+      app: polar-keycloak

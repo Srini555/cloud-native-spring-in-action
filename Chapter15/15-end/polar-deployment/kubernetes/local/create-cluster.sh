@@ -1,18 +1,17 @@
 #!/bin/sh
 
-echo "📦 Initializing Kubernetes cluster..."
+echo "⛵ Initializing Kubernetes cluster...\n"
 
 kind create cluster --config kind-config.yml
 
 echo "\n-----------------------------------------------------\n"
 
-echo "🔌 Installing NGINX Ingress..."
+echo "🔌 Installing NGINX Ingress...\n"
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 
-echo "\n-----------------------------------------------------\n"
-
-echo "⌛ Waiting for NGINX Ingress to be ready..."
+echo "\n"
+echo "⌛ Waiting for NGINX Ingress to be ready...\n"
 
 sleep 10
 
@@ -22,5 +21,4 @@ kubectl wait --namespace ingress-nginx \
   --timeout=180s
 
 echo "\n"
-
-echo "⛵ Happy Sailing!"
+echo "⛵ Happy Sailing!\n"

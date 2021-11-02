@@ -28,13 +28,13 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: 9001
-            initialDelaySeconds: 10
-            periodSeconds: 5
+            initialDelaySeconds: 60
+            periodSeconds: 15
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 9001
-            initialDelaySeconds: 5
+            initialDelaySeconds: 60
             periodSeconds: 15
           env:
             - name: BPL_JVM_THREAD_COUNT
@@ -46,6 +46,8 @@ spec:
               mountPath: /workspace/config
             - name: catalog-service-volume-secret
               mountPath: /workspace/secrets/catalog-service
+            - name: rabbitmq-volume-secret
+              mountPath: /workspace/secrets/rabbitmq
       volumes:
         - name: catalog-service-volume
           configMap:
@@ -53,3 +55,6 @@ spec:
         - name: catalog-service-volume-secret
           secret:
             secretName: catalog-service
+        - name: rabbitmq-volume-secret
+          secret:
+            secretName: polar-rabbitmq-secret
