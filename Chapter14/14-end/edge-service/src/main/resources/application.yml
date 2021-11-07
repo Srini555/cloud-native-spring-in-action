@@ -134,6 +134,9 @@ management:
       group:
         readiness:
           include: readinessState,redis
+  info:
+    env:
+      enabled: true
   metrics:
     tags:
       application: ${spring.application.name}

@@ -8,6 +8,7 @@ services:
       - fluent-bit
       - polar-keycloak
       - polar-postgres-catalog
+      - tempo
     image: "<your_dockerhub_username>/catalog-service:0.0.1-SNAPSHOT"
     container_name: "catalog-service"
     ports:
@@ -35,6 +36,7 @@ services:
       - polar-keycloak
       - polar-postgres-order
       - polar-rabbitmq
+      - tempo
     image: "<your_dockerhub_username>/order-service:0.0.1-SNAPSHOT"
     container_name: "order-service"
     ports:
@@ -60,6 +62,7 @@ services:
     depends_on:
       - fluent-bit
       - polar-rabbitmq
+      - tempo
     image: "<your_dockerhub_username>/dispatcher-service:0.0.1-SNAPSHOT"
     container_name: dispatcher-service
     ports:
@@ -82,6 +85,7 @@ services:
       - fluent-bit
       - polar-keycloak
       - polar-redis
+      - tempo
     image: "<your_dockerhub_username>/edge-service:0.0.1-SNAPSHOT"
     container_name: "edge-service"
     ports:
@@ -106,6 +110,7 @@ services:
   config-service:
     depends_on:
       - fluent-bit
+      - tempo
     image: "<your_dockerhub_username>/config-service:0.0.1-SNAPSHOT"
     container_name: "config-service"
     ports:
@@ -178,7 +183,7 @@ services:
   # Observability
 
   grafana:
-    image: grafana/grafana:8.2.2
+    image: grafana/grafana:8.2.3
     container_name: grafana
     depends_on:
       - loki
@@ -187,16 +192,15 @@ services:
     ports:
       - "3000:3000"
     environment:
-      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_USER: user
       GF_SECURITY_ADMIN_PASSWORD: password
     volumes:
       - ./platform/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
       - ./platform/grafana/dashboards:/etc/grafana/provisioning/dashboards
   
   loki:
-    image: grafana/loki:2.3.0
+    image: grafana/loki:2.4.0
     container_name: loki
-    command: -config.file=/etc/loki/local-config.yaml
     depends_on:
       - fluent-bit
     ports:
@@ -211,7 +215,7 @@ services:
       - "./platform/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml"
   
   tempo:
-    image: grafana/tempo:1.1.0
+    image: grafana/tempo:1.2.0
     container_name: tempo
     command: -config.file /etc/tempo-config.yml
     volumes:
@@ -221,11 +225,10 @@ services:
       - "9411:9411"     # Zipkin
 
   fluent-bit:
-    image: grafana/fluent-bit-plugin-loki:2.3.0-amd64
+    image: grafana/fluent-bit-plugin-loki:2.4.0-amd64
     container_name: fluent-bit
     ports:
       - "24224:24224"
-      - "24224:24224/udp"
     environment:
       - LOKI_URL=http://loki:3100/loki/api/v1/push
     volumes:

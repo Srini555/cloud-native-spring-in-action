@@ -73,6 +73,9 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+  info:
+    env:
+      enabled: true
 
 polar:
   greeting: Welcome to the local book catalog!
