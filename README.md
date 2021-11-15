@@ -104,6 +104,11 @@ Gradle | Maven
 * [Starting point](https://github.com/ThomasVitale/cloud-native-spring-in-action/tree/main/Chapter14/14-begin)
 * [Final version](https://github.com/ThomasVitale/cloud-native-spring-in-action/tree/main/Chapter14/14-end)
 
+## 15. GitOps and Kubernetes in production
+
+* [Starting point](https://github.com/ThomasVitale/cloud-native-spring-in-action/tree/main/Chapter15/15-begin)
+* [Final version](https://github.com/ThomasVitale/cloud-native-spring-in-action/tree/main/Chapter15/15-end)
+
 ## 16. Serverless and GraalVM native images
 
 * [Starting point](https://github.com/ThomasVitale/cloud-native-spring-in-action/tree/main/Chapter16/16-begin)
